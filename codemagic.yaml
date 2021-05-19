@@ -3,11 +3,11 @@ workflows:
     name: 247votes
     environment:
       vars:
-        KEYSTORE: Encrypted(Z0FBQUFBQmdwVFczaVhRVmJsSnJfazhqREtwVnBMajhwam1BZmYtdXVqZ2FiU2RlMHQ0SkhVVm1OZTVDdzd4ZTFpWDFfYXdMMkdXRmlXTU5QWS15WXdZdE9EcTU1c250YW5WRFBNODU3UVpnRW5EcGNiRl9vZUE9) # <-- Put your encrypted keystore file here
+        KEYSTORE: Encrypted(Z0FBQUFBQmdwVDBuaXJyMWR0eEozcFhVM0VyTmdIdDBnV1FWZ09sTXRoZmtsOHRkaFNjOFR1VkM3NjNkeHItWktfS2RJVmUzNUdOUVFtMzA3S21MN3NfLTJjZzhQV2V1U0JxdGp3RDF0eXlhdFZSSXRQZF9uS3c9) # <-- Put your encrypted keystore file here
         KEYSTORE_PATH: '/tmp/247votes.keystore'
         KEYSTORE_PASSWORD: Encrypted(Z0FBQUFBQmdwUjI5NXFvSmVDalVBMkVhX0hkdHA5NTNBa2M3ZkFOeWwxQTBTeUFRUGJvUUhSTmx3Nks1R3NyNTA4bHhOU0liWTlTRnhUSlI0RW44MGM0N1lBeFlPMlVqUHc9PQ==) # <-- Put your encrypted keystore password here
         KEY_ALIAS_PASSWORD: Encrypted(Z0FBQUFBQmdwUjI5NXFvSmVDalVBMkVhX0hkdHA5NTNBa2M3ZkFOeWwxQTBTeUFRUGJvUUhSTmx3Nks1R3NyNTA4bHhOU0liWTlTRnhUSlI0RW44MGM0N1lBeFlPMlVqUHc9PQ==) # <-- Put your encrypted keystore alias password here
-        KEY_ALIAS: Encrypted(Z0FBQUFBQmdwVFVWdGwzc2hDTUpWOFlIdUdoenBkYnJUVVNKZlRDRzlrMjdMQ0tXZS1UUHRtUkFsVXNWTG5BdEIxWmVUQTE4b25fYURHS0l2cjRVdG5fOHJkT2FOU01zY0E9PQ==) # <-- Put your encrypted alias password here
+        KEY_ALIAS: Encrypted(Z0FBQUFBQmdwVDFkSkJQMFBGR3BReHZnVFFyWjFJZFcyemxPd0NKWUN3aFM4RXduR0VHcm5tQ1VSXzR6cTUtTHpkWHdJRDE2b1lMRVFDdlFJSmwtN3N5ckZRTTdvX3p1V0E9PQ==) # <-- Put your encrypted alias password here
       xcode: 12.4
       node: 12
       npm: 6
@@ -32,7 +32,7 @@ workflows:
           set -e
           cordova build android --release --no-interactive --prod --device
           echo $KEYSTORE | base64 --decode > $KEYSTORE_PATH
-          UNSIGNED_APK_PATH=$(find platforms/android/app/build/outputs -name "247votes.apk" | head -1)
+          UNSIGNED_APK_PATH=$(find platforms/android/app/build/outputs -name "*.apk" | head -1)
           jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore "${KEYSTORE_PATH}" -storepass "${KEYSTORE_PASSWORD}" -keypass "${KEY_ALIAS_PASSWORD}" "${UNSIGNED_APK_PATH}" "${KEY_ALIAS}"
           mv $UNSIGNED_APK_PATH $(echo $UNSIGNED_APK_PATH | sed 's/-unsigned//')          
     artifacts:
