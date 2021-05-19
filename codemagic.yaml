@@ -7,7 +7,7 @@ workflows:
         KEYSTORE_PATH: '/tmp/247votes.keystore'
         KEYSTORE_PASSWORD: Encrypted(Z0FBQUFBQmdwUjI5NXFvSmVDalVBMkVhX0hkdHA5NTNBa2M3ZkFOeWwxQTBTeUFRUGJvUUhSTmx3Nks1R3NyNTA4bHhOU0liWTlTRnhUSlI0RW44MGM0N1lBeFlPMlVqUHc9PQ==) # <-- Put your encrypted keystore password here
         KEY_ALIAS_PASSWORD: Encrypted(Z0FBQUFBQmdwUjI5NXFvSmVDalVBMkVhX0hkdHA5NTNBa2M3ZkFOeWwxQTBTeUFRUGJvUUhSTmx3Nks1R3NyNTA4bHhOU0liWTlTRnhUSlI0RW44MGM0N1lBeFlPMlVqUHc9PQ==) # <-- Put your encrypted keystore alias password here
-        KEY_ALIAS: Encrypted(Z0FBQUFBQmdwUjNqZE5mX2VzYnQzNFBzRm5sUURuTmZQUDNmRTRhdWg3cGhWdVl0RWp0Tlh0RlAyWnRXeW9YOUM1NEFmeV9CVzU1a0M5UVpXLVEteXQ1RC1qTjNBT3RFdXc9PQ==) # <-- Put your encrypted alias password here
+        KEY_ALIAS: Encrypted(Z0FBQUFBQmdwUjI5NXFvSmVDalVBMkVhX0hkdHA5NTNBa2M3ZkFOeWwxQTBTeUFRUGJvUUhSTmx3Nks1R3NyNTA4bHhOU0liWTlTRnhUSlI0RW44MGM0N1lBeFlPMlVqUHc9PQ==) # <-- Put your encrypted alias password here
       xcode: 12.4
       node: 12
       npm: 6
