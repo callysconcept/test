@@ -1,0 +1,1 @@
+10000 || This version of app is outdated. Kindly Update to V1.5.0 || https://play.google.com/store/apps/details?id=com.callysconcept.c247votes

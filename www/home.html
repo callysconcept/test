@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *" />
+    <meta name="mobile-web-app-capable" content="yes">
+	
+	<title>247Votes</title>
+	
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="fa/css/all.min.css">
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script>
+function showLoad(){
+$.mobile.loading( 'show', {
+	text: 'foo',
+	textVisible: true,
+	theme: 'z',
+	html: "<img src='images/loader.gif' style='width:100px;margin-left:25%'>"
+});
+}
+
+function hideLoad(){
+$.mobile.loading( "hide" );
+}
+showLoad();
+</script>
+
+</head>
+<body onload="checkAds()">
+<input id="userEmail" type="hidden" value="">
+<style>
+body{
+font-family: "Montserrat Alternates", "Open Sans", Helvetica, Arial, sans-serif !important;
+}
+
+.ui-btn-active{
+background: linear-gradient( #fff , #edecec )!important;
+color: #387bbe !important;
+text-shadow: none !important;
+border:1px solid #ccc; !important;
+border-top:3px solid #387bbe !important;
+}
+.ui-page-theme-a {
+ text-shadow: none !important;   
+	}
+	
+.ui-btn-up-c{
+height:40px !important;
+border:none;
+padding: 10px 5px !important;
+font-family: "Montserrat Alternates", "Open Sans", Helvetica, Arial, sans-serif !important;
+}
+.ui-btn-hover-c{
+height:40px
+}
+.header-custom{
+margin-top:40px;
+height:50px;
+padding: 5px 30px;
+background-image: linear-gradient( #fff , #f1f1f1 ); 
+border:#ccc;
+position:fixed;
+width:100%;
+z-index:99
+}
+
+
+
+
+.date-bar{
+	background:#f5f5f5;
+	border-left: 2px solid #8497a4;
+	padding: 8px 5px 8px 15px;
+}
+.trans-bar1{
+	background:#fff;
+	border-right: 2px solid green;
+	padding: 5px 10px 5px 15px;
+	margin-bottom:5px
+}
+.trans-bar2{
+	background:#fff;
+	border-right: 2px solid red;
+	padding: 5px 10px 5px 15px;
+	margin-bottom:5px
+}
+.success{
+	color:green;
+}
+.failed{
+	color:red;
+}
+.bold{
+	font-weight:900;
+	text-shadow: -0.5px -0.5px 0 currentColor;
+	padding-right: 2px;
+	position: relative;
+	top: -1px;
+}
+
+
+
+  header {
+    display: grid;
+    grid-template-columns: 84% auto;
+    background-color: #3a3a3a;
+}
+    header strong {
+	padding: 12px;
+      -webkit-app-region: drag;
+      color: #fff;
+	  }
+
+      header strong span {
+        color: red;
+      }
+
+    header nav {
+	  
+	  }
+
+     header nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+	}
+
+        header nav ul li {
+          float: left;
+          padding: 10px;
+		  height:25px;
+		  cursor: pointer;
+		 }
+
+         header nav ul li img {
+            width: 12px;
+            
+          }
+         #min-btn:hover {
+           background-color:blue; 
+          }
+		  #close-btn:hover {
+           background-color:red; 
+          }
+
+
+
+
+.search-box{
+        font-size: 14px;
+    }
+    .search-box input[type="password"]{
+        height: 32px;
+        padding: 5px 10px;
+        border: 1px solid #CCCCCC;
+        font-size: 14px;
+    }
+    .result{
+        position: absolute;        
+        z-index: 999;
+        
+        left: 0;
+        background:#fff;
+    }
+    .search-box input[type="password"], .result{
+        width: 100%;
+        box-sizing: border-box;
+		background:transparent
+    }
+    /* Formatting result items */
+    .result p{
+        margin: 0;
+        padding: 7px 10px;
+        border: 1px solid #CCCCCC;
+        border-top: none;
+        cursor: pointer;
+		font-weight:bold;
+		background:#fff;
+		width:80%;
+    }
+	.result div{
+        margin: 0;
+        padding: 7px 10px;
+        border: 1px solid #CCCCCC;
+        border-top: none;
+        cursor: disabled;
+		font-weight:bold;
+    }
+    .result p:hover{
+        background: #f2f2f2;
+    } 
+
+.bub{
+background: red;
+color: #fff;
+padding: 2px 4px;
+font-size: 10px;
+border-radius: 7px;
+margin-left: -3px;
+position: relative;
+top: -8px;
+display:none;
+}	
+
+.ui-btn.ui-btn-b{
+background-color: green !important;
+}
+.ui-btn.ui-btn-b:hover{
+background-color: #008000bd !important;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 99;
+  top: 45px;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style> 
+<div data-role="page" class="jqm-demos" data-quicklinks="true">	
+<div id="mainHead">
+<header style="position:fixed;top:0;z-index:999;width:100%;height:45px">
+    <div style="padding:12px;color:#fff"><b><span style="color:red">247</span> Votes</b></div>
+	<div style="font-weight:bold;color:#fff;float:right;margin-top:15px">v2.0</div>
+  </header>	
+
+<div data-role="heade" class="header-custom " style="">
+<p style="margin-top:15px;float:left"><span style="border-radius:10px; width:100px;border:2px solid #387bbe;padding:5px 15px"><i class="fas fa-user-friends" style='font-size:16px;'></i> <span id="store_name" style="font-size:14px; font-weight:bold;color:red">User</span></span></p>
+	<span style="float:right;margin-top:15px;margin-right:60px"><a href="#" onclick="window.location.href='index.html#login'"><i class="fas fa-lock" style='font-size:22px;padding-right:25px'></i></a>
+	<a href="javascript:openNav()" onclick="openNav()" data-toggle="modal" ><i class="fas fa-bars" style='font-size:22px'></i></a></span>
+</div>	
+	
+</div>	
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#data" onclick="data()">Buy Data</a>
+  <a href="#sync" onclick="sync()">Sync App</a>
+</div>
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+function sync(){
+showLoad();
+//$('.ui-content').fadeOut();
+$('#defBtn').click();
+//$('#sync').html();
+$('#five').html($('#sync').html());
+closeNav();
+hideLoad();
+}
+
+function data(){
+showLoad();
+$('#defBtn').click();
+//$('#five').html($('#data').html());
+closeNav();
+$('#five').html('<object id="ddd3" onload="adjH3()" data="https://247votes.com.ng/sme/" width="100%" style="height:100%; overflow:auto; margin-top:5px"/>');
+hideLoad();
+}
+
+function rest(){
+$('#sync').hide();
+$('#data').hide();
+//$('.ui-content').show();
+}
+</script>	
+		
+<style>	
+ .ui-grid-d > .ui-block-a, .ui-grid-d > .ui-block-b, .ui-grid-d > .ui-block-c, .ui-grid-d > .ui-block-d {
+    width: 25% !important;
+}	
+</style>		
+		<div data-role="tabs" style="margin-top:50px;height:450px">
+			<div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer" style="position:fixed;bottom:0">
+		<div data-role="navbar">
+				<ul>
+			    <li class="ui-block-a"><a onclick="myFunction(); myFunc()" href="#one"  class="ui-btn-active ui-btn-up-c"><i class="fas fa-home" style='font-size:20px;padding-bottom:5px'></i><br>Home</span></a></li>
+				<li class="ui-block-b"><a onclick="myFunction1(); myFunc()" href="#two"  class="ui-btn-up-c"><i class="fas fa-vote-yea" style='font-size:20px;padding-bottom:5px'></i><br>Poll</span></a></li>
+				<li class="ui-block-c"><a onclick="myFunction2()" href="#three"  class="ui-btn-up-c"><i class="fas fa-comments" style='font-size:20px;padding-bottom:5px'></i><span id="chat-bub" class="bub"></span><br>Chat</span></a></li>
+				<li class="ui-block-d"><a onclick="myFunction3(); myFunc()" href="#four"  class="ui-btn-up-c"><i class="fas fa-tv" style='font-size:20px;padding-bottom:5px'></i><br>Live TV</span></a></li>
+				<li class="ui-block-e" style="display:none"><a id="defBtn" onclick="myFunc()" href="#five"  class="">vv</a></li>
+			
+			    </ul>
+			</div>	
+			
+			
+		</div><!-- /footer -->
+
+
+<div id="one" class="ui-content" style="padding:0" onfocus="myFunction()">
+
+<div id="ad" align=center style="margin-top:50px;background-image: linear-gradient(to right, #826df1 , #1dcf9f);border-radius:5px;min-height:150px">
+<div id="ads" style="max-height:153px;width: 100%;
+position: absolute;
+left: 0;
+top: 50px;overflow:hidden" src="https://247v.icu/ads.php"></div>
+<div style="padding-top: 15px;
+font-size: 2rem;
+font-weight: 600;
+color: #fff;position:relative;background:rgb(0,0,0,0.3);height: 135px;" id="ads-text">
+</div>
+</div>
+<div style="margin-top:-35px;width:100%;" align=center><button onclick="getTrans()" data-toggle="modal" style="display:block;background:#fff;border-radius:5px;padding:10px 10px;width:50%;box-shadow: 0px 1px #888888;font-family:Trebuchet MS, sans-serif !important;"><i class="fas fa-plus" style='font-size:16px;padding-bottom:5px;color:#1dcf9f'></i> Transaction History</button></div>
+
+<script>
+$(document).ready(function(){
+var a = getUsername();
+var b = pollID();
+var url2 = "https://247v.icu/ads.php?user="+a+"&pollID="+b;
+        $('#ads').load(url2); 
+       
+    });
+</script>
+
+
+
+<div align=center style="margin-bottom:10px;">
+<br>
+<span style="font-weight:600">Verify Transaction </span>
+<div style="margin-top:0px" class="search-box input-group">
+					<input autofocus="" type="text" autocomplete="off" style="background:#FFF;color:#000;height:35px;text-align:center"  id="verifyTxt" class="form-control" style="text-align:center" onkeypress="verify()" onkeyup="verify()" onblur="verify2()" placeholder="Enter Transaction Ref to query" class="form-control" required="">
+				  </div>	
+
+ <p id="verifyload" style="display:none;margin-top:20px"><i class="fa fa-spinner fa-spin" style="font-size:24px;color:#000"></i></p>
+  <p id="verifyresult" style="display:none;margin-top:20px;color:#000"></p>
+
+	
+</div>
+
+<div align=center style="margin-bottom:100px;">
+<br>
+
+<p class="link"></p>
+<br>
+<div class="ads-banner">
+</div>
+<input type="hidden" id="ads-save">	
+</div>
+
+
+</div>
+
+
+
+<div id="sync" class="" hidden>
+<div align="center" id="">
+</div>
+<div align="center" id="">
+<img id="login-logo" src="images/logo.png" style="width:100px;margin-top:60px;">
+<br>
+<br>
+<span style="font-weight:500">Link Contestant/Merchant ID</span>
+<form method="post" onsubmit="custFunc(); return false;">
+<div class="ui-grid-a">
+<div style="margin-top:0px;width:70%" class="search-box input-group ui-block-a">
+					<input type="text" autocomplete="off" style="background:#FFF;color:#000;height:35px;text-align:center;border-radius:.3125em 0 0 .3125em"  id="linkID" class="form-control" style="text-align:center" placeholder="Enter uniqueID or merchantID" class="form-control" required="">
+				  </div>	
+<div class="ui-block-b" style="width:30%"><button type="submit" data-role="button" data-theme="b" data-mini="true" style="border-radius:0 .3125em .3125em 0">Submit</button></div>
+</form>
+</div>
+<br>
+<div class="ads-banner">
+</div>
+</div>
+</div>
+
+
+<div id="data" class="" hidden>
+<div align="center" id="data-link">
+
+</div>
+</div>
+
+<div id="five" class="ui-content">
+<img id="login-logo" src="images/logo.png" style="width:100px;margin-top:60px;">
+<br>
+<br>
+Enter pollID, link or title to proceed
+<br>fff
+</div>
+
+
+
+
+
+<div id="two" class="ui-content">
+<div align="center" id="twoDiv-link">
+</div>
+<div align="center" id="twoDiv">
+<img id="login-logo" src="images/logo.png" style="width:100px;margin-top:60px;">
+<br>
+<br>
+Enter pollID, link or title to proceed
+<br>
+<br>
+<form method="post" onsubmit="searchClient(); return false;">    
+<div style="margin-top:0px" class="search-box input-group">
+					<input autofocus="" type="text" autocomplete="off" style="background:#FFF;color:#000;height:35px;text-align:center"  id="verifyTxt" class="form-control" style="text-align:center" onkeypress="verify()" onkeyup="verify()" onblur="verify2()" placeholder="Enter pollID, link or title" class="form-control" required="">
+					<div class="result"></div>
+					<input data-role="none" id="user_form" type="submit" hidden>
+				  </div>	
+
+ <p id="verifyload" style="display:none;margin-top:20px"><i class="fa fa-spinner fa-spin" style="font-size:24px;color:#000"></i></p>
+  <p id="verifyresult" style="display:none;margin-top:20px;color:#000"></p>
+
+</form>	
+
+</div>
+</div>
+
+
+<style>
+div.form-search::before {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    background-image: url('images/glyphicons-halflings.png');
+    background-position: -48px 0;
+    position: absolute;
+    margin-top: 10px;
+    left: 32px;
+    opacity: .5;
+    z-index: 1;
+}
+
+#chatDiv{
+cursor:pointer;
+}
+
+#chatDiv:hover{
+background: rgb(0,0,256,0.1);
+}
+
+.msgBody{
+padding: 1% 3%;
+margin-right: 15%;
+margin-left:5px;
+border: 1px solid #fff;
+display:table;
+font-size:0.8rem;
+background:#fff;
+border-radius:10px;
+margin-bottom:5px;
+}
+.msgBody2{
+padding: 1% 3%;
+margin-right: 5px;
+margin-left: 15%;
+border: 1px solid #dcf8c6;
+display:table;
+font-size:0.8rem;
+background:#dcf8c6;
+border-radius:10px;
+margin-bottom:5px;
+}
+
+.msgTime{
+float: right;
+font-size:0.7rem;
+position: relative;
+bottom: -5px;
+padding-left: 10px;
+}
+
+._1ij5F{
+text-align: center;
+font-size: 0.7rem;
+padding: 10px 10px 15px;
+}
+
+._1VzZY{
+padding: 5px 12px;
+text-align: center;
+text-shadow: 0 1px 0 #e1f2fb;
+background-color: #e1f2fb;
+border-radius: 7.5px;
+box-shadow: 0 1px .5px #e1f2fb;
+}
+
+.imgDiv{
+cursor:pointer;
+}
+
+.textarea{
+margin-top:10px;
+border: 1px solid grey;
+background: transparent none;
+-webkit-appearance: none;
+resize: none;
+overflow: hidden;
+height: 30px;
+max-height: 70px;
+min-height: 30px;
+width:100%; 
+font-size: 12px;  
+border-radius: 15px;
+padding: .6em;
+line-height: 1.2em;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+outline: 0;
+}
+</style>
+
+<div id="three" class="ui-content" style="padding:0;margin-top: -52px;margin-left: -3px;">
+
+
+<div id="listChatDiv" style="background:#fff; height:100%">
+<div style="height:70px;background:#eeeeee">
+<img id="login-logo" src="images/logo.png" style="width:50px;margin-top:10px; margin-left:20px;">
+<div style="font-weight:bold; position: absolute;top: -27px;left: 78px;"><span style="color:red">247</span> Chat</div>
+<span style="float:right;margin-top:25px;margin-right:40px"><a href="javascript:" onclick="window.location.href='index.html#login'"><i class="fas fa-lock" style='font-size:22px;padding-right:25px'></i></a>
+	<a href="javascript:getPrinter()" onclick="getPrinter()" data-toggle="modal" ><i class="fas fa-bell" style='font-size:22px'></i></a></span>
+</div>
+<div id="chat-search" style="border-bottom: 1px solid #dadbdb;padding:1px 20px;background:#f8f8f8;">
+					<div class="form-search form-inline" style="width:100%;">
+					    <input type="text" class="search-query border-0" placeholder="Search or start new chat" style="width:100%; height: 25px; font-size: 14px;  border-radius: 20px; padding-left:30px">
+					</div>
+</div>
+
+<div id="chatDivBody">
+
+
+</div>
+
+</div>
+
+
+
+
+<div tabindex="0" id="openChatDiv" style="" hidden>
+<div style="height:70px;background:#fff;border-bottom: 1px solid #dadbdb;position:fixed;top:0;width:100%;z-index:3">
+<i onclick="goBack();" class="fa fa-chevron-left" style="float:left;margin-left:20px; margin-top: 25px;font-size: 20px;cursor:pointer"></i>
+<img id="login-logo" src="images/logo.png" style="width:50px;margin-top:10px; margin-left:20px;">
+
+<div style="height: 50px;position: absolute;width: 55%;left: 106px;padding: 10px 5px; line-height:1rem;top:10px">
+<font id="ocTitle" style="font-weight:bold;font-size: 14px; display:inline-block; text-overflow: ellipsis;white-space: nowrap;overflow: hidden;width: 97%;">Title</font><br>
+<p id="ocUsers" style="font-size: 10px;margin-top: 2px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;width: 96%;">0 active participant</p>
+</div>
+
+<i class="fa fa-ellipsis-v" style="float:right;margin-right: 30px;margin-top: 25px;font-size: 20px;cursor:pointer"></i>
+</div>
+
+
+<div  id="chatBody" style="margin-top:70px;padding-top:10px;padding-bottom:150px;background:url('images/wp5149772.jpg'); background-size:250px; min-height:200px">
+
+
+</div>
+
+
+
+
+<div id="messageDiv" style="width:100%;max-height:98px;background:#f8f8f8;border-top: 2px solid #dadbdb; position:fixed;bottom:65px">
+<form id="chatForm" action="" method="post" enctype="multipart/form-data">
+ <input type="hidden" name="id" value="chatAdd">
+ <input type="hidden" name="pollID" value="" id="pollID">
+ <input type="hidden" name="userID" value="" id="userID">
+
+<div class="" style="width:70%;margin-left:15%">
+<textarea data-role="none" placeholder="Type a message" name="text" id="text" type="text" oninput="auto_grow(this)" class="textarea"></textarea>
+</div>
+<label for="imageUp" style="float:left;margin-left:5%; margin-top: -30px;font-size: 20px;cursor:pointer"><i class="fa fa-camera"></i></label>
+<button data-role="none" id="subBtn" type="submit" style="float:right;margin-right: 2%;margin-top: -47px;font-size: 20px;cursor:pointer;background: transparent;border: none;padding: 15px;"><i class="fa fa-paper-plane" ></i></button>
+<input type="file" id="imageUp" name="imageUp" accept="image/*" style="position:absolute;bottom:-70px;visibility:hidden">
+</div>
+</form>
+</div>
+
+
+
+</div>
+
+
+
+
+<div id="four" class="ui-content">
+
+<div align="center" id="fourDiv-link" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:100%">
+
+</div>
+		
+</div>		
+<style>
+.close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: 0.2;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}
+button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.modal-open {
+  overflow: hidden;
+}
+.modal {
+  position: fixed;
+  top: 90px;
+  right: 0;
+  bottom: 0;
+  margin-bottom:50px;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}
+.modal.fade .modal-dialog {
+  -webkit-transform: translate(0, -25%);
+  -ms-transform: translate(0, -25%);
+  -o-transform: translate(0, -25%);
+  transform: translate(0, -25%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out, -o-transform 0.3s ease-out;
+}
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  outline: 0;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 100px;
+  margin-bottom:70px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+.modal-backdrop.fade {
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+.modal-backdrop.in {
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}
+.modal-header {
+  padding: 8px 15px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.modal-header .close {
+  margin-top: -2px;
+}
+.modal-title {
+  margin: 0;
+  line-height: 1.42857143;
+}
+.modal-body {
+  position: relative;
+  padding: 15px;
+  background:aliceblue;
+  max-height: 350px;
+  overflow-y: scroll;
+}
+.modal-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
+.modal-footer .btn + .btn {
+  margin-bottom: 0;
+  margin-left: 5px;
+}
+.modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+.modal-footer .btn-block + .btn-block {
+  margin-left: 0;
+}
+.modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+  }
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  .modal-sm {
+    width: 300px;
+  }
+}
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 900px;
+  }
+}
+</style>
+<script src="js/bootstrap.min.js"></script>
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button data-role="none" type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Transaction History</h4>
+        </div>
+        <div id="transBody" class="modal-body">
+          
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  <!-- Printer Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button data-role="none" type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Options</h4>
+        </div>
+        <div id="optionBody" class="modal-body">
+		<br>
+        <label><b>Select Printer</b></label>  
+		<select id="listPrinter">
+		</select>
+		<br>
+		<br>
+		<button onclick="logout();">Logout <i class="fa fa-sign-out"></i></button>
+		<br>
+		<br>
+		<p align=center><b><small>Designed By:</small><br>CALYs Global Concept<br></b>support@callysconcept.com<br><b><small>Version 2.0</small></b></p>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+ <audio id="audio" src="images/send.mp3" preload="metadata" type="audio/mpeg">
+ </audio> 
+<input data-role="none" type="text" value="" id="clipboard" style="position:absolute;opacity:0;top:-30px">	
+</div><!-- /page -->
+
+<div id="payDiv" style="display:none">
+<form method="post" onsubmit="validate();return false;">
+<div class="ro" style="margin-top:10px">
+<div class="col-xs-9" style="width:75%;display:inline">
+No of Votes <small>₦<span class="upd-amt"></span>/vote</small>
+</div>
+<div class="col-xs-3" style="width:25%;display:inline-block">
+<input onchange="updatePrice()" onkeydown="updatePrice()" onkeyup="updatePrice()" id="no-of-vote" name="no-of-vote" type="number" class="form-control" min="1" value="1" required="">
+<input class="upd-amt" id="vote-amt" type="hidden" value="">
+<input class="upd-amt" id="total-amt" type="hidden" value="">
+<input id="uniqueID" type="hidden" value="">
+</div>
+<p><select data-role="none" required id="bank" style="padding:10px;width:100%;border:1px solid grey;border-radius:5px">
+<option value="">-- Choose Bank --</option>
+<option value="044">Access Bank</option>
+<option value="023">Citibank</option>
+<option value="050">Ecobank</option>
+<option value="214">First City Monument Bank (FCMB)</option>
+<option value="070">Fidelity Bank</option>
+<option value="011">First Bank</option>       
+<option value="058">Guaranty Trust Bank (GTB)</option>
+<option value="030">Heritage Bank</option>
+<option value="301">Jaiz Bank</option>
+<option value="082">Keystone Bank</option>
+<option value="101">Providus Bank</option>
+<option value="221">Stanbic IBTC Bank</option>
+<option value="076">Skye Bank</option>
+<option value="068">Standard Chartered Bank</option>
+<option value="232">Sterling Bank</option>
+<option value="032">Union Bank</option>
+<option value="033">United Bank for Africa (UBA)</option>
+<option value="215">Unity Bank</option>
+<option value="035">Wema Bank</option>
+<option value="057">Zenith Bank</option>
+</select></p>
+<p><button type="submit" id="pay-btn" class="ui-btn btn-success form-control" style="text-shadow: none; background-color: green;color:#fff">Pay NGN <span class="upd-amt" id="upd-amt"></span></button>
+<button disabled type="button" id="pay-btn2" class="ui-btn btn-info form-control" style="display:none;text-shadow: none; background-color: #09a5db;;color:#fff">Please Wait...</button></p>
+<br>
+<br>
+<br>
+</form>
+</div>
+
+ 
+	
+</div>
+<script>
+
+function logout(){
+var x = confirm("Are You sure you want to logout this account?");
+if(x){
+//localStorage.removeItem('app_user');
+window.location.reload='index.html';
+}
+}
+
+function getUsername(){
+var url = window.location.href;
+let params = (new URL(url)).searchParams;
+$('.getUsername').val(params.get('user'));
+return params.get('user');
+}
+
+function getUniqueID(){
+var url = window.location.href;
+let params = (new URL(url)).searchParams;
+//$('.getUsername').val(params.get('uniqueID'));
+return params.get('uniqueID');
+}
+
+function getName(){
+var url = window.location.href;
+let params = (new URL(url)).searchParams;
+//$('.getUsername').val(params.get('uniqueID'));
+return params.get('name');
+}
+
+function pollID(){
+var url = window.location.href;
+let params = (new URL(url)).searchParams;
+//$('.getUsername').val(params.get('uniqueID'));
+return params.get('pollID');
+}
+
+
+function getDefault(){
+var url = window.location.href;
+let params = (new URL(url)).searchParams;
+//$('.getUsername').val(params.get('uniqueID'));
+if(params.get('memo') == 'null' || params.get('memo') == 'undefined' || params.get('memo') == '')
+$('#ads-text').html('');
+else
+$('#ads-text').html(params.get('memo'));
+if(params.get('msg') != '0'){
+$('#chat-bub').html(params.get('msg'));
+$('#chat-bub').fadeIn();
+}
+$('#store_name').html(params.get('name'));
+}
+
+getDefault();
+
+function getData(){
+//hideLoad();
+getAds();
+var phn = getUsername();
+$.post('https://247votes.com.ng/app/api.php', {id:'getData',user:phn}, function(response){
+//alert(response);
+if(response == '0'){
+//window.location.href="index.html#login";
+//return false;
+}
+var obj = JSON.parse(response);
+document.getElementById('store_name').innerHTML=obj.store;
+$('#ads-text').html(obj.text);
+$('.WalletBon').html(obj.bonus);
+$('.WalletTot').html(obj.total);
+$('#userEmail').val(obj.email);
+if(obj.link != null)
+$('.link').html('<a style="font-size:12px" href="'+obj.link+'" target="_blank">'+obj.link+'</a>');
+//document.getElementById('transDetails').innerHTML='';
+setTimeout(hideLoad,1500);
+}).fail(function(){
+setTimeout(hideLoad,1500);
+});
+setTimeout(function(){document.getElementById("guests").focus();},1000);
+}
+
+
+
+function getTrans(){
+var phn = getUniqueID();
+if(phn == ''){
+return false;
+}
+showLoad();
+console.log($(window).height());
+$('#transBody').css('max-height',$(window).height()-250);
+$.post('https://admin.247v.icu/php/api', {id:'getTrans',user:phn}, function(response){
+$('#myModal').modal('show');
+if(response == '0'){
+//window.location.href="index.html#login";
+//return false;
+}
+//var obj = JSON.parse(response);
+//document.getElementById('store_name').innerHTML=obj.store;
+$('#transBody').html(response);
+//alert(response);
+//document.getElementById('transDetails').innerHTML='';
+setTimeout(hideLoad,1500);
+});
+
+}
+
+function checkAds(){
+$.post('https://247votes.com.ng/ads/notice', function(response){
+//alert(response);
+var obj = response.split(" || ");
+if(obj[0] == '1'){
+alert(obj[1]);
+if(obj.length == 3 && obj[2] != ''){
+
+$('a[href="'+obj[2]+'"]').click();
+
+}
+}
+
+if(obj[0] == '2'){
+var a = confirm(obj[1]);
+if(a){
+window.open(obj[2]);
+}
+}
+
+});
+myFunction();
+}
+
+function myFunction(){
+showLoad();
+//getTime();
+getData();
+}
+
+function myFunction1(){
+$('#twoDiv-link').html('');
+$('#twoDiv').show();
+
+}
+
+function myFunction2(){
+$('#mainHead').hide();
+getChat();
+}
+
+function myFunc(){
+$('#mainHead').show();
+}
+
+
+$(document).ready(function(){
+    $('.search-box input[type="text"]').on("keyup input", function(){
+        /* Get input value on change */
+		
+        var inputVal = $(this).val();
+		
+        var resultDropdown = $(this).parent(".result");
+        if(inputVal.length > 3){
+            $.post("https://admin.247v.icu/php/api", {id:'getPoll',text: inputVal}).done(function(data){
+			
+                $(".result").html(data);
+            });
+        } else{
+            $(".result").html('');
+        }
+    });
+    
+    // Set search input value on click of result item
+    $(document).on("click", ".result p", function(){
+        $(this).parents(".search-box").find('input[type="password"]').val($(this).text());
+        $(this).parent(".result").empty();
+		$(".result").html('');
+        //document.getElementById("user_form").click();
+    });
+});
+
+function loadPoll(id){
+//alert(id);
+showLoad();
+$.post("https://admin.247v.icu/php/api", {id:'getContestants',pollID: id}).done(function(data){
+			
+    $('#twoDiv-link').html('<div style="height:100%; overflow:auto; margin-top:40px"/>'+data+'</div>'); 
+$('#twoDiv').hide();
+hideLoad();
+            });
+
+}
+
+function loadPoll2(id,name){
+//alert(id);
+showLoad();
+var pp = $('#pollPrice').val();
+$('#uniqueID').val(id);
+$('.upd-amt').html(pp);
+$('.upd-amt').val(pp);	
+var pd = $('#payDiv').html();		
+$('#twoDiv-link').html('<div style="height:100%; overflow:auto; margin-top:40px; text-align:center" align=center/><h4><b>'+name+'</b></h4><img src="https://admin.247v.icu/merchant/uploads/vote/'+id+'.JPG" style="max-width:300px;width:100%"><br>'+pd+'</div>'); 
+$('#twoDiv').hide();
+hideLoad();
+           
+
+}
+
+
+function formatNaira(num) {
+    var p = num.toFixed(2).split(".");
+    return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+        return  num=="-" ? acc : num + (i && !(i % 3) ? "," : "") + acc;
+    }, "") + "." + p[1];
+}
+
+function updatePrice(){
+	var a = $('#no-of-vote').val();
+	var b = $('#vote-amt').val();
+	$('#upd-amt').html(formatNaira(a*b));
+	$('#total-amt').val(a*b);
+}
+
+function validate(){
+updatePrice();
+	var a = document.getElementById('uniqueID').value;
+	var b = document.getElementById('total-amt').value;
+	var c = getUsername();;
+	var d = getName();
+	var e = document.getElementById('userEmail').value;
+	var f = document.getElementById('no-of-vote').value;
+	var g = document.getElementById('bank').value;
+	var h = 'yes';
+	
+	
+	
+	if(a == '' || b == ''){
+		alert('Please check all field correctly');
+		return false;
+	}
+
+document.getElementById('pay-btn').setAttribute("disabled", "disabled");
+$('#pay-btn').fadeOut();	
+$('#pay-btn2').fadeIn();
+showLoad();	
+	// Post a user
+$.post("https://admin.247v.icu/quickpay/ussd", {id:'processVote', uniqueID: a, amt: b, phn: c, name: d, email: e, votes: f, bnk: g, app: h}).done(function(data){
+var resp = data;
+var res = resp.split("--response--");
+var re = res[0].split(" || ");
+		if(re[0] == 'ok'){
+		var msg ='<font color="green">'+res[1]+'</font>';
+		startListen(re[1]);
+		}else{
+		var msg ='<font color="red">'+res[1]+'</font>';	
+		}
+			
+$('#twoDiv-link').html('<div id="payMsg" style="height:100%; overflow:auto; margin-top:60px; font-size:18px"/>'+msg+'</div>'); 
+$('#twoDiv').hide();
+document.getElementById('pay-btn').removeAttribute("disabled");
+$('#pay-btn2').fadeOut();	
+$('#pay-btn').fadeIn();
+hideLoad();
+}).fail(function() {
+alert("Cannot perform request. Try again!!!");
+document.getElementById('pay-btn').removeAttribute("disabled");
+$('#pay-btn2').fadeOut();	
+$('#pay-btn').fadeIn();
+hideLoad();
+            });
+
+
+}
+
+function startListen(txid){
+console.log("Payment Listner Started...");
+$.post("https://admin.247v.icu/php/api", {data:'startListen',tnxID: txid}).done(function(data){
+	if(data == '1'){		
+    $('#twoDiv-link').html('<p>&nbsp;</p><img width="50%" src="images/vote.png"><p  style="font-size:4vw;"><b>VOTES RECEIVED & COUNTED</b></p><p style="font-size:3vw;margin-top:-10px">Thanks for Voting</p><p>Your Transaction Reference Number is <b>'+txid+'</b></p><p><small>You can query this transaction at anytime using your Reference Number</small></p><br>');
+	console.log("Payment Completed!!!");
+}else{
+setTimeout(function(){
+startListen(txid);
+},5000);
+}	
+}).fail(function(){
+setTimeout(function(){
+console.log(txid+" Retrying...");
+startListen(txid);
+},5000);
+});
+}
+
+
+
+function getAds(){
+//alert('1');
+$.post("https://247votes.com.ng/ads/list", function(data){
+console.log(data);
+var list = data.replace("\n", ",");
+$('#ads-save').val(list);
+showAds();
+});
+}
+
+
+
+function showAds(){
+var list = $('#ads-save').val();
+var arr = list.split(",");
+var arrLength = arr.length;
+var rand = arr[Math.floor(Math.random()*arrLength)];
+var arr2 = rand.split(" || ");
+var img = arr2[0];
+var phone = arr2[1];
+var a = getUsername();
+var b = getName();
+var link = 'https://247votes.com.ng/ads/?contact='+phone+'&user='+a+'&name='+b;
+$('.ads-banner').html('<a href="'+link+'" target="_blank"><img src="'+img+'" width="100%"></a>');
+$('#ads-banner2').html('<a href="'+link+'" target="_blank"><img src="'+img+'" width="100%" style="max-height:35px"></a>');
+setTimeout(showAds,15000);
+}
+
+
+
+function myFunction3(){
+//alert(id);
+showLoad();
+var a = getUsername();
+var b = pollID();
+var url = "https://247v.icu/tv.php?user="+a+"&pollID="+b;
+$('#fourDiv-link').html('<object id="ddd2" onload="adjH2()" data="'+url+'" width="100%" style="height:100%; overflow:auto; margin-top:40px"/>'); 
+
+}
+
+function adjH(){
+$('#twoDiv').hide();
+$('#ddd').height($(window).height());
+hideLoad();
+}
+
+function adjH2(){
+//$('#ddd2').height($(window).height());
+var a = document.getElementById("ddd2").offsetHeight;
+$('#fourDiv-link').height($(window).height()*0.5);
+hideLoad();
+}
+
+function adjH3(){
+
+//$('#ddd2').height($(window).height());
+var a = document.getElementById("ddd3").offsetHeight;
+//alert($(window).height()-150);
+$('#five').height($(window).height()-100);
+//hideLoad();
+}
+
+
+    function verify(){
+    $('#verifyload').fadeIn('slow');
+    var a = $('#verifyTxt').val();
+    if(a.length > 15){
+    $.post('https://admin.247v.icu/php/api',{data:'verify',ref:a},function(response){
+    $('#verifyload').hide();
+    $('#verifyresult').html(response).fadeIn('slow');    
+    });
+    }else{
+    $('#verifyresult').fadeOut('slow');    
+    }
+    }
+    function verify2(){
+    $('#verifyload').fadeOut('slow');
+	if(a == '')
+	$('#verifyresult').fadeOut('slow'); 
+    }
+	
+	
+function custFunc(){
+showLoad();
+var a = $("#linkID").val();
+var phn = getUsername();
+$.post('https://247votes.com.ng/app/api.php', {id:'linkID', 'linkID':a, 'phone':phn}, function(response){
+if(response == '1'){
+alert("Profile Sync Successful!\nYour account has been linked.\nKindly login to complete process...");
+window.location.href='index.html#page4';
+}else{
+alert("Profile Sync Failed!!!\nAn error occured, please try again");
+}
+hideLoad();
+}).fail(function() {
+    alert( "Internet Connection Error!!!\nCannot use this functionin OFFLINE MOOD" );
+	hideLoad();
+  });
+
+}
+</script> 
+
+
+
+
+
+<script>
+function openChat(id,title,users){
+$('#pollID').val(id);
+$('#ocTitle').html(title);
+$('#ocUsers').html(users);
+$('#listChatDiv').hide();
+$('#openChatDiv').fadeIn();
+$('#chatBody').css('height',$(window).height()-100);
+$('#chatBody').css('overflow','scroll');
+loadMsg(1);
+backInt(1);
+}
+
+function goBack(){
+getChat();
+$('#openChatDiv').hide();
+$('#listChatDiv').fadeIn();
+}
+
+function auto_height(elem) {  /* javascript */
+    elem.style.height = "1px";
+    elem.style.height = (elem.scrollHeight)+"px";
+}
+
+
+$("#chatForm").on("submit", function(event){
+event.preventDefault();
+var formValues= new FormData(this);
+$.ajax({
+  url: 'https://247votes.com.ng/app/api.php', 
+  type: 'POST',
+  data: formValues, // The form with the file inputs.
+  processData: false,
+  contentType: false                    // Using FormData, no need to process data.
+}).done(function(data){
+  if(data == '1'){
+  play();
+	 loadMsg();
+	 backInt(1);
+  }else
+	  alert(data);
+}).fail(function(){
+  console.log("An error occurred, the message couldn't be sent!");
+});
+
+    });
+	
+function loadMsg(id){
+var a = $('#pollID').val();
+var b = getUniqueID();
+$.post('https://247votes.com.ng/app/api.php',{id:'loadMsg',pollID:a,uniqueID:b},function(data){
+$('#chatBody').html('<div id="ads-banner2" style="position:fixed;width:100%;z-index:9"></div>'+data);
+//$('#chatBody').css('height',$(window).height()-140);
+$('#openChatDiv').focus();
+$("#text").val('');
+$("#imageUp").val('');
+$("#text").css('height',"30px");
+var aa = $("#msgCount").val();
+if(aa > '0'){
+$('#chat-bub').html(aa);
+$('#chat-bub').fadeIn();
+}else{
+$('#chat-bub').hide();
+}
+//$('#chatBody').height($(window).height());
+var elem = document.getElementById('chatBody');
+if (elem.scrollTop >= (elem.scrollHeight - elem.offsetHeight)) {
+    document.getElementById('chatBody').scrollIntoView(false);
+	console.log('bottom');
+}
+if(id == 1){
+elem.scrollTop = elem.scrollHeight;
+}
+
+
+});
+}
+
+function getMsgCount(){
+var a = getUsername();
+$.post('https://247votes.com.ng/app/api.php',{id:'getMsgCount',phone:a},function(data){
+if(data > '0'){
+$('#chat-bub').html(data);
+$('#chat-bub').fadeIn();
+//navigator.vibrate(500);
+}else{
+$('#chat-bub').hide();
+}
+});
+}
+
+setInterval(getMsgCount, 30000);
+
+function backInt(id){
+if(id == 0){
+clearInterval(myVar);
+console.log('Chat listner stopped!!');
+}else{
+myVar = setInterval(loadMsg, 10000);
+console.log('Chat listner started!!');
+}
+}
+
+$("#openChatDiv").blur(function(){
+  backInt(0);
+}); 
+
+function getChat(){
+var a = getUniqueID();
+var b = pollID();
+var d = getName();
+if(b == '00'){
+var c = 'getChat2';
+$('#userID').val(d);
+//$('#imageUp').attr('disabled',true);
+//$('#text').attr('disabled',true);
+//$('#subBtn').attr('disabled',true);
+}else{
+var c = 'getChat';
+$('#userID').val('Poll Admin');
+$('#imageUp').attr('disabled',false);
+$('#text').attr('disabled',false);
+$('#subBtn').attr('disabled',false);
+}
+$.post('https://247votes.com.ng/app/api.php',{id:c,uniqueID:a},function(data){
+//console.log(data);
+$('#chatBody').css('min-height',$(window).height()-140);
+$('#chatDivBody').css('min-height',$(window).height()-140);
+$('#chatDivBody').html(data);
+});
+}
+
+
+function sentenceCase(input, lowercaseBefore) {
+    input = ( input === undefined || input === null ) ? '' : input;
+    if (lowercaseBefore) { input = input.toLowerCase(); }
+    return input.toString().replace( /(^|\. *)([a-z])/g, function(match, separator, char) {
+        return separator + char.toUpperCase();
+    });
+}
+
+function fomartTyping(){
+	$('#text').val(sentenceCase($('#text').val()));
+}
+
+function openImg(id){
+//var link = $(id).attr(src);
+//alert(id);
+window.open(id);
+}
+
+
+function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight)+"px";
+}
+
+$("#text").keypress(function (e) {
+    if(e.which == 13 && !e.shiftKey) {        
+       // $(this).closest("form").submit();
+        //e.preventDefault();
+    }
+});
+</script>
+
+ <script>
+      function play() {
+        var audio = document.getElementById("audio");
+        audio.play();
+      }
+    </script>
+	
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+        app.initialize();
+    </script>
+</body>
+
+</html>

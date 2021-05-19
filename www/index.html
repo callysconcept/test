@@ -1,0 +1,777 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+	<meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *" />
+    <meta name="mobile-web-app-capable" content="yes">
+  
+	<title>247Votes</title> 
+	
+	
+	<link rel="stylesheet" href="css/jquery.mobile.structure-1.0.1.css" />
+	<link rel="apple-touch-icon" href="images/launch_icon_57.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="images/launch_icon_72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="images/launch_icon_114.png" />
+	<link rel="stylesheet" href="css/custom.css" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
+<script src="js/config.js" type="text/javascript"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/jquery.mobile-1.3.2.min.js"></script>
+</head> 
+
+<body onload="myFunction2()">
+ <style>
+      input[type=number] {
+          height: 25px;
+		  min-height: 25px !important;
+          width: 25px !important;
+          font-size: 25px;
+          text-align: center;
+          border: 1px solid #000000;
+		  -moz-appearance:textfield;
+		margin: 5px;
+		-webkit-text-security: disc;
+        -moz-webkit-text-security: disc;
+        -moz-text-security: disc;
+		  
+      }
+      input[type=number]::-webkit-inner-spin-button,
+      input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+  
+      }
+
+	  #pin-input {
+  display: flex; /* 2. display flex to the rescue */
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+     left: 50%;
+     transform: translate(-50%,0%);
+}
+
+.ui-btn-inner{
+background:green;
+color:#fff;
+}
+.ui-btn-corner-all{
+border-radius:0.5em;
+margin:0px 10px;
+background:green;
+}
+.ui-btn-up-d {
+    text-shadow: 0 0px 0px #fff;
+}
+.footer-section{
+position:absolute;
+left:0px;
+width:100%;
+bottom:15px;
+}
+#welcome{
+font-size:18px;
+color:#444
+}
+
+#account-info{
+font-weight:bold;
+}
+
+#pin-error{
+color:red;
+font-size:14px
+}
+
+#otp-error{
+color:red;
+font-size:14px
+}
+
+#otp-error2{
+color:red;
+font-size:14px
+}
+
+
+body{
+font-size:14px;
+font-family:Trebuchet MS, sans-serif !important;
+}
+
+
+.ui-body-c{
+font-family:Trebuchet MS, sans-serif !important;
+}
+
+#otp {
+  padding-left: 15px;
+  letter-spacing: 60px;
+  border: 0;
+  background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+  background-position: bottom;
+  background-size: 70px 1px;
+  background-repeat: repeat-x;
+  background-position-x: 45px;
+  width: 350px;
+  min-width: 350px;
+  background-color: #f0f0fe;
+  margin-left:-7px
+}
+
+#divInner{
+  left: 0;
+  position: sticky;
+}
+
+#divOuter{
+  width: 320px; 
+  overflow: hidden;
+}
+.ui-shadow-inset {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+.ui-body-c, .ui-overlay-c {
+    border-top:none ;
+    border-left:none ;
+    border-right:none ;
+	border-radius:0px;
+	background-color:transparent;
+	
+	}
+#divInner .ui-body-c{
+border-bottom:none ;
+}
+div.ui-input-text {
+    margin: 5px;
+}
+
+
+::-webkit-input-placeholder { /* Edge */
+  color: red;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: red;
+}
+
+input::placeholder {
+  color: red;
+}
+
+.ui-btn-up-c{
+text-shadow: none!important;
+}
+    </style>
+    <script>
+      function getCodeBoxElement(index) {
+        return document.getElementById('codeBox' + index);
+      }
+      function onKeyUpEvent(index, event) {
+        const eventCode = event.which || event.keyCode;
+        if (getCodeBoxElement(index).value.length === 1) {
+          if (index !== 6) {
+            getCodeBoxElement(index+ 1).focus();
+          } else {
+            getCodeBoxElement(index).blur();
+            // Submit code
+			$('#pin-submit').click();
+            //console.log('submit code ');
+          }
+        }
+        if (eventCode === 8 && index !== 1) {
+          getCodeBoxElement(index - 1).focus();
+        }
+      }
+      function onFocusEvent(index) {
+        for (item = 1; item < index; item++) {
+          const currentElement = getCodeBoxElement(item);
+          if (!currentElement.value) {
+              currentElement.focus();
+              break;
+          }
+        }
+      }
+    </script> 
+
+<div data-role="page" id="page0" data-theme="c" style="background:url('images/bg.jpg')">
+
+<form method=post>
+	<div data-role="content">
+	<div align="center">
+	<div style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);width:100%">
+	
+	<img id="login-logo" src="images/bg2.jpg" style="">
+	
+	</div>
+	</form>
+	</div>
+	
+	</div>
+
+</div><!-- /page -->
+
+
+
+
+
+<div data-role="page" id="page1" data-theme="c" style="background:#f0f0fe !important;" onfocus="checkHash()">
+<form data-ajax="false" method=post id="form1" onsubmit="myFunc1();return false;">
+<input type="hidden" name="id" value="step1">
+	<div data-role="content">
+	<div align="center">
+	<img id="login-logo" src="images/logo.png" style="width:100px;margin-top:30px;">
+	<div style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);width:340px">
+	<p><b>Enter Phone Number to Proceed</b></p>
+	<div style="margin:0px 10px;"><input type="tel" id="phone" oninput="this.value = this.value.replace(/[^0-9]/g, '');" name="phone" minlength="11" maxlength="11" style="text-align:center" required></div>
+<br>
+	<input type="submit" value="Get Code" id="phone-submit">
+	</div>
+	</form>
+	</div>
+	
+	</div>
+
+</div><!-- /page -->
+
+
+
+
+<div data-role="page" id="page2" data-theme="c" style="background:#f0f0fe !important;" onfocus="checkHash()">
+<form data-ajax="false" method=post id="form2" onsubmit="myFunc2(); return false;">
+<input type="hidden" name="id" value="step2">
+	<div data-role="content">
+	<div align="center">
+	<img id="login-logo" src="images/logo.png" style="width:100px;margin-top:40px;">
+	<div style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);width:340px">
+	<p><b>Enter OTP sent to Phone</b></p>
+	
+	<span id="otp-error" hidden>Incorrect passcode entered</span>
+<div id="divOuter">
+  <div id="divInner">
+	<input name="phone" class="hidden-phone" type="hidden">
+    <input placeholder="" id="otp" name="otp" type="tel" minlength="5" maxlength="5" onKeyup="if(this.value.length==5){$('#otp-submit').click();return false;}" autocomplete="off" oninput='this.value = this.value.replace(/[^0-9]/g, "").replace(/(\..*)\./g, "$1");' required />
+  </div>
+</div>
+
+<p>&nbsp;</p>
+	<input type="submit" value="Validate" id="otp-submit">
+	
+	</div>
+	</form>
+	
+<div class="footer-section">
+	<p>Need help? <a href="whatsapp://send?phone=2347055320186&text=Hi+Gooday,+Please+i+need+support+with+the+247Votes+app.">Chat with support</a></p>
+	
+	</div>
+
+	</div>
+	
+	</div>
+
+</div><!-- /page -->
+
+
+
+
+<div data-role="page" id="page3" data-theme="c" style="background:#f0f0fe !important;">
+<form data-ajax="false" method=post id="form3" onsubmit="myFunc3(); return false;">
+<input type="hidden" name="id" value="step3">
+	<div data-role="content" style="font-weight:bold;font-size:14px;padding:10px 30px">
+<p style="font-size:16px">Personal Information</p>
+<p>First name<br>
+<input placeholder="Enter your first name" name="fname" required>
+<p>Surname<br>
+<input placeholder="Enter your surname" name="sname" required>
+<p>Gender<br>
+<table style="margin-top:-5px">
+<tr>
+<td style="width:20px;"><input value="Male" name="gender" type="radio" style="width: 18px;height: 18px;background: #F87DA9;left:0px;margin: -8px 0 0 0;"></td><td style="width:60px;">Male</td>
+<td style="width:20px;"><input value="Female" name="gender" type="radio" style="width: 18px;height: 18px;background: #F87DA9;left:0px;margin: -8px 0 0 0;"></td><td style="width:40px;">Female</td>
+</tr>
+</table>
+<hr>
+<p style="font-size:16px">Address and contact information</p>
+<p>Country<br>
+<input placeholder="Enter your country" value="Nigeria" disabled>
+<p>E-mail<br>
+<input placeholder="Enter your email" name="email" type="email" required>
+<hr>
+<p style="font-size:16px">Account Information</p>
+<p>Phone number<br>
+<input class="hidden-phone"  disabled>
+<input class="hidden-phone" id="tmp_phone" name="phone" type="hidden">
+<p>PIN Setup<br>
+<input type="tel" name="pin" placeholder="Enter 6 digits PIN for login" oninput='this.value = this.value.replace(/[^0-9]/g, "").replace(/(\..*)\./g, "$1");' minlength="6" maxlength="6" required>
+
+
+
+<div align="center">
+<p>&nbsp;</p>
+	<input type="submit" value="Save" id="account-submit">
+	
+	</div>
+	</form>
+	
+	
+	</div>
+
+</div><!-- /page -->
+
+
+
+
+
+<div data-role="page" id="page4" data-theme="c" style="background:#f0f0fe !important;" onfocus="checkHash()">
+<form data-ajax="false" method=post id="form4" onsubmit="myFunc4(); return false;">
+<input type="hidden" name="id" value="step4">
+	<div data-role="content" id="pinpad">
+	<div align="center">
+	<img id="login-logo" src="images/logo.png" style="width:70px;margin-bottom:-10px;margin-top:30px">
+	<div id="account-section">
+	<p id="welcome">Welcome Back!</p>
+	<span id="account-info"></span>
+	
+	<p style="padding-top:15px">Not you? <a href="#" onclick="logout()">Switch account</a></p>
+	</div>
+	
+	<div id="pin-section">
+	
+	<p style="padding-top:5px"><b>Enter your PIN</b></p>
+	<form>
+	<div id="pin-input">
+        <input placeholder="-" id="codeBox1" name="box1" type="tel" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1)" autofocus required />
+        <input placeholder="-" id="codeBox2" name="box2" type="tel" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2)" required />
+        <input placeholder="-" id="codeBox3" name="box3" type="tel" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3)" required />
+        <input placeholder="-" id="codeBox4" name="box4" type="tel" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4)" required />
+        <input placeholder="-" id="codeBox5" name="box5" type="tel" maxlength="1" onkeyup="onKeyUpEvent(5, event)" onfocus="onFocusEvent(5)" required />
+        <input placeholder="-" id="codeBox6" name="box6" type="tel" maxlength="1" onkeyup="onKeyUpEvent(6, event)" onfocus="onFocusEvent(6)" required />
+	<input type="hidden" name="phone" id="account-phone">
+	</div>
+	<p>&nbsp;</p><p>&nbsp;</p>
+	<span id="pin-error" hidden>Wrong PIN</span>
+	<p id="pin-forgot" style="padding-top:5px">Forgot PIN? <a href="javascript:fPin()">Reset</a></p>
+	
+	</div>
+	
+	<div class="footer-section">
+	<p>Need help? <a href="whatsapp://send?phone=2347055320186&text=Hi+Gooday,+Please+i+need+support+with+the+247Votes+app.">Chat with support</a></p>
+	<input type="submit" value="Authorize" id="pin-submit">
+	
+	</div>
+	</form>
+	</div>
+	
+	</div>
+<input type="hidden" id="appID" value="">
+</div><!-- /page -->
+
+
+<div data-role="page" id="page5" data-theme="c" style="background:#f0f0fe !important;" >
+<form data-ajax="false" method=post id="form5" onsubmit="myFunc5(); return false;">
+<input type="hidden" name="id" value="step5">
+	<div data-role="content">
+	<div align="center">
+	<img id="login-logo" src="images/logo.png" style="width:70px;margin-bottom:-10px;margin-top:30px">
+	
+	<div>
+<input class="hidden-phone" id="username" name="phone" type="hidden">
+<br>
+<br>
+<p>Reset Code<br>
+<input style="text-align:center" type="tel" name="otp" placeholder="One Time Passcode" oninput='this.value = this.value.replace(/[^0-9]/g, "").replace(/(\..*)\./g, "$1");' minlength="6" maxlength="6" required>
+
+<p>Enter New PIN<br>
+<input style="text-align:center" id="pin1" type="tel" placeholder="******" oninput='this.value = this.value.replace(/[^0-9]/g, "").replace(/(\..*)\./g, "$1");' minlength="6" maxlength="6" required>
+
+<p>Re-Enter New PIN<br>
+<input style="text-align:center" id="pin2" onkeydown="checkM()" onkeyup="checkM()" type="tel" name="pin" placeholder="******" oninput='this.value = this.value.replace(/[^0-9]/g, "").replace(/(\..*)\./g, "$1");' minlength="6" maxlength="6" required>
+<div id="otp-error2" hidden style="margin-top:10px">Incorrect passcode entered</div>
+
+	</div>
+	<br>
+<a href="#page4">Return to Login</a>	
+	<div class="footer-section">
+	<p>Need help? <a href="whatsapp://send?phone=2347055320186&text=Hi+Gooday,+Please+i+need+support+with+the+247Votes+app.">Chat with support</a></p>
+	<input type="submit" value="Save" id="pin-save" data-role="none" style="border-radius: 0.5em;
+margin: 0px 10px;
+background: #007bff;
+color:#fff;
+padding: .6em 20px;
+width: 95%;
+font-weight: bold;
+cursor:pointer">
+	
+	</div>
+	</form>
+	</div>
+	
+	</div>
+</div><!-- /page -->
+<script>
+function checkM(){
+var a = $('#pin1').val();
+var b = $('#pin2').val();
+if(a == b){
+//console.log(b);
+document.getElementById('pin-save').removeAttribute("disabled");
+$('#pin-save').removeClass('ui-disabled');
+}else{
+//console.log('no:'+b);
+document.getElementById('pin-save').setAttribute("disabled", "disabled");
+$('#pin-save').addClass('ui-disabled');
+}
+}
+function logout(){
+var x = confirm("Are You sure you want to logout this account?");
+if(x){
+localStorage.removeItem('app_user');
+window.location.reload='index.html';
+}
+}
+if(window.location.hash == '#login'){
+$('body').attr('onload','');
+document.getElementById("otp").focus();
+if (typeof(Storage) !== "undefined") {
+    // Code for localStorage
+if(window.localStorage.getItem('app_user')){
+var user= JSON.parse(window.localStorage.getItem('app_user'));
+	if(user.phone == null || user.name == null || user.phone == '' || user.name == ''){
+	myFunction2();
+	}else{
+	$('#account-phone').val(user.phone);
+	$('#account-info').html(user.name+' (*******'+user.phone.substr(-4, 4)+')');
+	myFunction();
+	window.location.href="#page4";
+	}
+    }else{
+	myFunction2();
+}
+}	else {
+    alert("Browser Not Supported to run this APP\nPlease Try using the Latest version of Chrome");
+}
+}
+
+
+function showLoad(){
+$.mobile.loading( 'show', {
+	text: 'foo',
+	textVisible: true,
+	theme: 'z',
+	html: "<img src='images/loader.gif' style='width:100px;margin-left:25%'>"
+});
+}
+
+function hideLoad(){
+$.mobile.loading( "hide" );
+}
+
+function myFunction() {
+  document.getElementById("codeBox1").focus();
+  document.getElementById("codeBox1").value = '';
+  document.getElementById("codeBox2").value = '';
+  document.getElementById("codeBox3").value = '';
+  document.getElementById("codeBox4").value = '';
+  document.getElementById("codeBox5").value = '';
+  document.getElementById("codeBox6").value = '';
+
+
+}
+
+function myFunction2() {
+setTimeout(showLoad,100);
+setTimeout(function(){
+
+if (typeof(Storage) !== "undefined") {
+    // Code for localStorage
+if(window.localStorage.getItem('app_user')){
+var user= JSON.parse(window.localStorage.getItem('app_user'));
+	if(user.phone == null || user.name == null || user.phone == '' || user.name == ''){
+	window.location.href="#page1";
+	}else{
+	$('#account-phone').val(user.phone);
+	$('#account-info').html(user.name+' (*******'+user.phone.substr(-4, 4)+')');
+	window.location.href="#page4";
+	}
+    }else{
+	window.location.href="#page1";
+}
+}	else {
+    alert("Browser Not Supported to run this APP\nPlease Try using the Latest version of Chrome");
+}
+hideLoad(); 
+},5000);
+}
+
+function myFunc1() {
+showLoad();
+var data = $("#form1").serialize();
+$.post('https://247votes.com.ng/app/api.php', data, function(response){
+//alert(response);
+setTimeout(function(){
+if(response == '0' || response == null){
+}else
+if(response.length <= 11){ 
+
+document.getElementById("form1").reset();
+$('.hidden-phone').val(response);
+window.location.href="#page2";
+
+}else{
+var obj = JSON.parse(response);
+if(obj.name){
+document.getElementById("form1").reset();
+$('.hidden-phone').val(obj.phone);
+window.location.href="#page2";
+}
+}
+hideLoad();
+},1000);
+}).fail(function() {
+    alert( "Network Timeout\nPlease try Again!!!" );
+	hideLoad();
+  });
+
+}
+
+
+function myFunc2() {
+showLoad();
+var data = $("#form2").serialize();
+$.post('https://247votes.com.ng/app/api.php', data, function(response){
+//alert(response);
+setTimeout(function(){
+if(response == '0' || response == null){
+$('#otp-error').show();
+document.getElementById("otp").value='';
+}else{
+var obj = JSON.parse(response);
+var user = {
+    name: obj.name,
+    phone: obj.phone
+}
+if(obj.status == '1'){
+window.localStorage.setItem('app_user', JSON.stringify(user));
+$('#account-phone').val(obj.phone);
+$('#account-info').html(obj.name+' (*******'+obj.phone.substr(-4, 4)+')');
+window.location.href="#page4";
+}else{
+document.getElementById("form2").reset();
+$('.hidden-phone').val(obj.phone);
+window.location.href="#page3";
+}
+}
+hideLoad();
+},1000);
+}).fail(function() {
+    alert( "Network Timeout\nPlease try Again!!!" );
+	hideLoad();
+  });
+
+}
+
+
+function myFunc3() {
+var pin = $('input[name=pin]').val();
+if(pin.length < 6){
+$('input[name=pin]').focus();
+return false;
+}
+showLoad();
+var phn = $('#tmp_phone').val();
+var fname = $('input[name=fname]').val();
+var lname = $('input[name=sname]').val();
+var data = $("#form3").serialize();
+$.post('https://247votes.com.ng/app/api.php', data, function(response){
+setTimeout(function(){
+if(response == '1'){
+var user = {
+    name: fname+" "+lname,
+    phone: phn
+}
+window.localStorage.setItem('app_user', JSON.stringify(user));
+$('#account-phone').val(phn);
+$('#account-info').html(fname+' '+lname+' (*******'+phn.substr(-4, 4)+')');
+document.getElementById("form3").reset();
+window.location.href="#page4";
+}
+hideLoad();
+},1000);
+}).fail(function() {
+    alert( "Network Timeout\nPlease try Again!!!" );
+	hideLoad();
+  });
+
+}
+
+function show_loading_animation()
+  {
+  document.write('loading...');// Manipulate DOM.
+  }
+
+function hide_loading_animation()
+  {
+  document.write('stop loading...');
+  }
+
+function myFunc4() {
+showLoad();
+var phn = $('#account-phone').val();
+var appID = $('#appID').val();
+var data = $("#form4").serialize() + "&appID=" + appID;
+
+var users= JSON.parse(window.localStorage.getItem('app_user'));
+$.post('https://247votes.com.ng/app/api.php', data, function(response){
+setTimeout(function(){
+var obj = JSON.parse(response);
+var uniqueID = obj.uniqueID;
+var pollID = obj.pollID;
+if(obj.status == '1'){
+document.getElementById("form4").reset();
+$('.hidden-phone').val(phn);
+$('#pinpad').hide();
+
+
+var user = {
+    name: obj.name,
+    phone: users.phone,
+    pin: obj.pin,
+    uniqueID: obj.uniqueID,
+    pollID: obj.pollID,
+    msg: obj.msg,
+    status: obj.status,
+    bal: obj.bal
+}
+window.localStorage.setItem('app_user', JSON.stringify(user));
+window.location.href="home.html?user="+phn+"&uniqueID="+uniqueID+"&pollID="+pollID+"&name="+obj.name+"&msg="+obj.msg+"&memo="+obj.bal;
+
+}else
+if(obj.status == '0'){
+$('#pin-error').html('Inactive Account!! Contact Support');
+$('#pin-error').show();
+document.getElementById("form4").reset();
+document.getElementById("codeBox1").focus();
+hideLoad();
+}else{
+$('#pin-error').html('Wrong PIN');
+$('#pin-error').show();
+document.getElementById("form4").reset();
+document.getElementById("codeBox1").focus();
+hideLoad();
+}
+
+},1000);
+}).fail(function() {
+
+var fakeURL = "https://www.example.com/t.html?" +  data;
+let params = (new URL(fakeURL)).searchParams;
+var pin = params.get('box1')+params.get('box2')+params.get('box3')+params.get('box4')+params.get('box5')+params.get('box6');
+if(users.phone == phn && users.pin == pin){
+if(users.status == '0'){
+$('#pin-error').html('Inactive Account!! Contact Support');
+$('#pin-error').show();
+document.getElementById("form4").reset();
+document.getElementById("codeBox1").focus();
+hideLoad();
+}else{
+alert( "No Internet Connection\nProceed to OFFLINE MOOD!!!" );
+window.location.href="home.html?user="+phn+"&uniqueID="+users.uniqueID+"&pollID="+users.pollID+"&name="+users.name+"&msg="+users.msg+"&memo="+users.bal;
+}
+}else{
+$('#pin-error').html('Wrong PIN');
+$('#pin-error').show();
+document.getElementById("form4").reset();
+document.getElementById("codeBox1").focus();
+hideLoad();
+}
+	hideLoad();
+  });
+
+}
+
+
+function checkHash(){
+
+if(window.location.hash == '#page2'){
+document.getElementById("otp").focus();
+}
+if(window.location.hash == '#page4'){
+myFunction();
+}
+
+}
+
+
+function fPin(){
+showLoad();
+var phn = $('#account-phone').val();
+$.post('https://247votes.com.ng/app/api.php', {id:'fPin',phone:phn}, function(response){
+
+window.location.href="#page5";
+$('#username').val(response);
+hideLoad();
+}).fail(function() {
+    alert( "Network Timeout\nPlease try Again!!!" );
+	hideLoad();
+  });
+
+}
+
+
+function myFunc5() {
+showLoad();
+$('#otp-error2').hide();
+var phn = $('#username').val();
+var data = $("#form5").serialize();
+
+$.post('https://247votes.com.ng/app/api.php', data, function(response){
+//console.log(response);
+if(response == '1'){
+alert("Password Change Successful!");
+window.location.href="#page4";
+}else{
+$('#otp-error2').show();
+}
+hideLoad();
+});
+}
+
+</script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+        app.initialize();
+function onDeviceReady() {
+var uid = device.uuid;
+document.getElementById('appID').value=uid;
+var obj = { deviceModel : device.model, deviceName: device.name, platform : device.platform, uuid : device.uuid, version : device.version, manufacture : device.manufacturer };
+//var myJSON = JSON.stringify(obj);
+//alert(myJSON);
+var setup = '0';
+if(window.localStorage.getItem('app_settings')){
+var settings= JSON.parse(window.localStorage.getItem('app_settings'));
+var setup = settings.setup;
+}
+
+if(setup != 1){
+
+$.post("https://247votes.com.ng/app/api.php",{id:'appReg', deviceModel : device.model, deviceName: device.name, platform : device.platform, uuid : device.uuid, version : device.version, manufacture : device.manufacturer},function(response){
+	
+if(response == 1){	
+var setup = {
+    appID: uid,
+    setup: 1
+}
+window.localStorage.setItem('app_settings', JSON.stringify(setup));
+}
+});
+}
+    }
+    </script>
+</body>
+</html>
